@@ -32,7 +32,7 @@ O projeto foi desenvolvido utilizando o Django, um framework web de alto nível 
 1. Clone este repositório em sua máquina local:
 
     ```markdown
-   git clone 
+   git clone https://github.com/GabrielSZordan/C214-Projeto.git
     ```
 2. Entrar no diretório calories_counter dentro de c214-app:
 

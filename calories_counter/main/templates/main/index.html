@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Calorias</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<div id = 'main'>
+    <h1>Calculadora de Calorias</h1>
+
+    <form id="alimento-form">
+        {% csrf_token %}
+        <div>
+            <label for="alimento">Alimento:</label>
+            <input type="text" id="alimento" name="alimento" required>
+        </div>
+        <div>
+            <label for="peso">Peso (g):</label>
+            <input type="number" id="peso" name="peso" required>
+        </div>
+        <button type="button" onclick="adicionarAlimento()">Adicionar Alimento</button>
+    </form>
+    
+    <h2>Lista de Alimentos</h2>
+    
+    <ul id="lista-alimentos"></ul>
+    
+    <div id="resultado-calorias"></div>
+</div>
+
+<script>
+    let alimentos = [];
+    let total_calorias = parseFloat(document.getElementById('resultado-calorias').getAttribute('data-total'));
+
+    function adicionarAlimento() {
+        const alimentoInput = document.getElementById('alimento');
+        const pesoInput = document.getElementById('peso');
+
+        const alimento = alimentoInput.value;
+        const peso = parseFloat(pesoInput.value);
+
+        if (alimento && !isNaN(peso) && peso > 0) {
+            alimentos.push({ alimento, peso });
+            atualizarListaAlimentos();
+            enviarDadosAoBackend();
+            alimentoInput.value = '';
+            pesoInput.value = '';
+        } else {
+            alert('Por favor, preencha o nome do alimento e um peso válido.');
+        }
+    }
+
+    function atualizarListaAlimentos() {
+        const listaAlimentos = document.getElementById('lista-alimentos');
+        listaAlimentos.innerHTML = '';
+
+        alimentos.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.alimento}: ${item.peso}g`;
+            listaAlimentos.appendChild(li);
+        });
+    }
+
+    function enviarDadosAoBackend() {
+        $.ajax({
+            url: '/', // Substitua pelo seu endpoint Django
+            type: 'POST',
+            data: {
+                alimentos: alimentos.map(item => item.alimento),
+                pesos: alimentos.map(item => item.peso),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {
+                atualizaSomaDasCalorias(data.total_calorias)
+            },
+            error: function (error) {
+                console.error('Erro ao enviar dados para o back-end:', error);
+            }
+        });
+    }
+
+    function atualizaSomaDasCalorias(total_calorias) {
+        const caloriasTotal = document.getElementById('resultado-calorias');
+        caloriasTotal.textContent = 'Calorias: ' + total_calorias + ' cal';
+    }
+
+</script>
+
+</body>
+</html>

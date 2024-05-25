@@ -1,0 +1,51 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.x
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r calories_counter/requirements.txt
+
+      - name: Run tests
+        run: |
+          cd calories_counter/main
+          pytest --html=report.html tests.py
+
+      - name: Upload de artefatos
+        uses: actions/upload-artifact@v3
+        with:
+          name: tests
+          path: |
+            calories_counter/main/report.html
+            calories_counter/main/assets
+
+  notificacao_test:
+
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    env:
+      EMAIL_LIST: pedrohrsilveira@hotmail.com
+
+    steps:
+      - name: Executa comandos
+        uses: actions/checkout@v3
+      - run: sh calories_counter/scripts/report_test.sh

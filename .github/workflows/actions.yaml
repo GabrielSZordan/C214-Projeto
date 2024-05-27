@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      EMAIL_LIST: pedrohrsilveira@hotmail.com
+      EMAIL_LIST: biel_zordan@hotmail.com
 
     steps:
       - name: Executa comandos

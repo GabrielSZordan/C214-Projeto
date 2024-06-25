@@ -13,7 +13,7 @@ def index(request):
         for alimento, peso in zip(alimentos, pesos):
             consulta = f"{peso}g {alimento}"
             api_url = f'https://api.api-ninjas.com/v1/nutrition?query={consulta}'
-            response = requests.get(api_url, headers={'X-Api-Key': 'mXQkKui50jO0+SOKXc8MRA==SBvHrJvnNrAIvTCk'})
+            response = requests.get(api_url, headers={'X-Api-Key': 'LY42tcrH7F8O2nRLoOFYGw==EJ4hh6KOkv2h3T9V'})
 
             if response.status_code == requests.codes.ok:
                 dados = json.loads(response.text)[0]

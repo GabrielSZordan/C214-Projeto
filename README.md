@@ -37,7 +37,7 @@ O projeto foi desenvolvido utilizando o Django, um framework web de alto nível 
 2. Entrar no diretório calories_counter dentro de c214-app:
 
     ```markdown
-    cd c214-app/calories_counter
+    cd C214-Projeto/calories_counter
     ```
 3. Instalar dependências do projeto:
 

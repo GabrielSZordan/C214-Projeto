@@ -33,7 +33,7 @@ class TestIndex(unittest.TestCase):
     def test_index(self):
         query = '100gr fries'
         api_url = 'https://api.api-ninjas.com/v1/nutrition?query={}'.format(query)
-        headers = {'X-Api-Key': 'mXQkKui50jO0+SOKXc8MRA==SBvHrJvnNrAIvTCk'}
+        headers = {'X-Api-Key': 'LY42tcrH7F8O2nRLoOFYGw==EJ4hh6KOkv2h3T9V'}
 
         response = requests.get(api_url, headers=headers)
 
@@ -45,7 +45,7 @@ class TestNullQuery(unittest.TestCase):
     def test_index(self):
         query = ' '
         api_url = 'https://api.api-ninjas.com/v1/nutrition?query={}'.format(query)
-        headers = {'X-Api-Key': 'mXQkKui50jO0+SOKXc8MRA==SBvHrJvnNrAIvTCk'}
+        headers = {'X-Api-Key': 'LY42tcrH7F8O2nRLoOFYGw==EJ4hh6KOkv2h3T9V'}
 
         response = requests.get(api_url, headers=headers)
 
@@ -61,7 +61,7 @@ class TestWrongQuery(unittest.TestCase):
     def test_index(self):
         query = '*#kg gabriel'
         api_url = 'https://api.api-ninjas.com/v1/nutrition?query={}'.format(query)
-        headers = {'X-Api-Key': 'mXQkKui50jO0+SOKXc8MRA==SBvHrJvnNrAIvTCk'}
+        headers = {'X-Api-Key': 'LY42tcrH7F8O2nRLoOFYGw==EJ4hh6KOkv2h3T9V'}
 
         response = requests.get(api_url, headers=headers)
 
